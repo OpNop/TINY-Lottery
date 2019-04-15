@@ -29,4 +29,4 @@ ENGINE=InnoDB;
 ```
 
 ### Cron
-Add `/cron/log-cron/php` to you crontab with any time you wish (1 hour is recommended)
+Add `/cron/log-cron.php` to you crontab with any time you wish (1 hour is recommended)
