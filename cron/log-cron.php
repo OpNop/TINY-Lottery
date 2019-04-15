@@ -29,27 +29,30 @@ if ($conn->connect_error) {
     die();
 }
 
-// Get last ID in the DB
-$last_id = $conn->query( "SELECT MAX(id) as id FROM {$config['db_table']}" )->fetch_object()->id;
+// Loop over guilds
+foreach( $config['guilds'] as $guild ) {
 
-if( is_null( $last_id ) )
-    $last_id = 0;
+    // Get last ID in the DB
+    $last_id = $conn->query( "SELECT MAX(log_id) as id FROM {$config['db_table']} where guild = '{$guild['guild_id']}'" )->fetch_object()->id;
 
-// Call the GW2 API and fetch the log
-$log = $api->guild()->logOf( $config['api_key'], $config['guild_id'] )->since( $last_id );
+    if( is_null( $last_id ) )
+        $last_id = 0;
 
-// If the API call failed, or empty log. just die
-if( empty( $log ) ) {
-    error_log( "GW2 API call failed or empty" );
-    die();
-}
+    // Call the GW2 API and fetch the log
+    $log = $api->guild()->logOf( $guild['api_key'], $guild['guild_id'] )->since( $last_id );
 
-foreach ( $log as $entry ) {
-    //var_dump( $entry );
-    if( $entry->id > $last_id ) {
-        if( $entry->type == 'stash' && $entry->operation == 'deposit' && $entry->coins > 0 ) {
-            $result = $conn->query( "INSERT INTO `{$config['db_table']}` (`id`, `time`, `user`, `coins`) 
-                                     VALUES ({$entry->id}, STR_TO_DATE('{$entry->time}', '%Y-%m-%dT%H:%i:%s.000Z'), '{$entry->user}', {$entry->coins})" );
+    // If the API call failed, or empty log. just die
+    if( empty( $log ) ) {
+        error_log( "GW2 API call failed or empty" );
+        die();
+    }
+
+    foreach ( $log as $entry ) {
+        if( $entry->id > $last_id ) {
+            if( $entry->type == 'stash' && $entry->operation == 'deposit' && $entry->coins > 0 ) {
+                $result = $conn->query( "INSERT INTO `{$config['db_table']}` (`log_id`, `time`, `user`, `coins`, `guild`) 
+                                        VALUES ({$entry->id}, STR_TO_DATE('{$entry->time}', '%Y-%m-%dT%H:%i:%s.000Z'), '{$entry->user}', {$entry->coins}, '{$guild['guild_id']}')" );
+            }
         }
     }
 }
