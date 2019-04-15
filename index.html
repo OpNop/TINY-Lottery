@@ -9,61 +9,12 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://bootswatch.com/4/pulse/bootstrap.min.css" crossorigin="anonymous">
-    <style>
-        @media (min-width: 1200px) {
-            .container {
-                max-width: 960px;
-            }
-        }
-        body {
-            background-color: #2e194e;
-            color: #f3e5f5;
-        }
-        tbody {
-            color: #2e194e;
-        }
-		.stylish-input-group .input-group-addon{
-			background: white !important; 
-		}
-		.stylish-input-group .form-control{
-			border-right:0; 
-			box-shadow:0 0 0; 
-			border-color:#ccc;
-		}
-		.stylish-input-group button{
-			border:0;
-			background:transparent;
-        }
-        .sprite{
-            background-image: url(img/coin_sprite.png);
-            background-repeat: no-repeat;
-            display: inline-block;
-            margin: 0 5px 0 2px;
-            position: relative;
-            top: 3px;
-            text-indent: 100%;
-            white-space: nowrap;
-            overflow: hidden;
-            height: 15px;
-            width: 15px;
-        }
-        .sprite-silver{
-            background-position: -15px 0;
-        }
-        .sprite-copper{
-            background-position: -30px 0;
-        }
-
-        .bg-notSoHarsh {
-            background-color: #6a3dbb !important;
-        }
-	</style>
-
+    <!-- I'm having trouble running the file on my computer (usually because) -->
+    <link rel="stylesheet" href="css/style.css">
     <title>GW2 Guild Lottery</title>
 </head>
 
 <body ng-app="tinyLottery" ng-controller="lotteryCtrl">
-
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
             <a class="navbar-brand" href="/">TINY Guild Lottery</a>
@@ -88,7 +39,7 @@
                             - A Maximum of 5 entries can be earned per week<br>
                             - The winner will be pulled during Tiny Takeover Tuesday<br>
                             - Entry period is weekly starting from Tuesday at server reset<br>
-                            - Every 50<i class="sprite sprite-gold">g</i> entered adds anoter winner to the drawing 
+                            - Every 50<i class="sprite sprite-gold">g</i> entered adds another winner to the drawing 
                             </p>
                         </div>
                         <div class="col">
@@ -102,6 +53,7 @@
                     
                     <!-- <p class="lead">
                         <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+                        Scratch that, no learning, bookahs.
                     </p> -->
                 </div>
             </div>
