@@ -1,0 +1,15 @@
+{
+    "name": "opnop/tiny-lottery",
+    "description": "A [TINY] Guild Wars 2 lottery system",
+    "type": "project",
+    "require": {
+        "gw2treasures/gw2api": "^3.6",
+        "jacwright/restserver": "^1.2"
+    },
+    "authors": [
+        {
+            "name": "Tiny Taimi",
+            "email": "taimi@dlgnetworks.com"
+        }
+    ]
+}

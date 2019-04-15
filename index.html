@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <base href="/">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://bootswatch.com/4/pulse/bootstrap.min.css" crossorigin="anonymous">
+    <style>
+        @media (min-width: 1200px) {
+            .container {
+                max-width: 960px;
+            }
+        }
+        body {
+            background-color: #2e194e;
+            color: #f3e5f5;
+        }
+        tbody {
+            color: #2e194e;
+        }
+		.stylish-input-group .input-group-addon{
+			background: white !important; 
+		}
+		.stylish-input-group .form-control{
+			border-right:0; 
+			box-shadow:0 0 0; 
+			border-color:#ccc;
+		}
+		.stylish-input-group button{
+			border:0;
+			background:transparent;
+        }
+        .sprite{
+            background-image: url(img/coin_sprite.png);
+            background-repeat: no-repeat;
+            display: inline-block;
+            margin: 0 5px 0 2px;
+            position: relative;
+            top: 3px;
+            text-indent: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            height: 15px;
+            width: 15px;
+        }
+        .sprite-silver{
+            background-position: -15px 0;
+        }
+        .sprite-copper{
+            background-position: -30px 0;
+        }
+
+        .bg-notSoHarsh {
+            background-color: #6a3dbb !important;
+        }
+	</style>
+
+    <title>GW2 Guild Lottery</title>
+</head>
+
+<body ng-app="tinyLottery" ng-controller="lotteryCtrl">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">TINY Guild Lottery</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+                aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="container" ng-init="onLoad()">
+        <div class="row">
+            <div class="col">
+                <div class="jumbotron bg-notSoHarsh">
+                    <h1 class="display-4">Hello, TINIES!</h1>
+                    <p class="lead">Use this tool (Work In Progress) to check that your deposits have been accepted (updates every hour on the hour)</p>
+                    <hr class="my-2">
+                    <div class="row">
+                        <div class="col">
+                            <p>Basic Rules:<br>
+                            - 1 entry for every 1<i class="sprite sprite-gold">g</i> deposited<br>
+                            - A Maximum of 5 entries can be earned per week<br>
+                            - The winner will be pulled during Tiny Takeover Tuesday<br>
+                            - Entry period is weekly starting from Tuesday at server reset<br>
+                            - Every 50<i class="sprite sprite-gold">g</i> entered adds anoter winner to the drawing 
+                            </p>
+                        </div>
+                        <div class="col">
+                            <p>Prizes:<br>
+                                - Any item from the 2nd tab in the guild bank<br>
+                                OR (First Prize only)<br>
+                                - 30% of that weeks lottery deposits
+                                </p>
+                        </div>
+                    </div>
+                    
+                    <!-- <p class="lead">
+                        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+                    </p> -->
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <form>
+                    <div class="form-group mt-3">
+                        <label for="AccountName">Account Name</label>
+                        <div class="input-group mb-3">
+                            <input type="text" ng-model="AccountName" class="form-control form-control-lg" id="AccountName" name="AccountName" placeholder="AccountName.1234">
+                            <div class="input-group-append">
+                                <button ng-click="searchEntries()" class="btn btn-primary" type="submit">Check Entries</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Date (Local Time)</th>
+                            <th scope="col">Deposit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="table-primary" ng-repeat="row in entryList" data-toggle="tooltip" data-placement="top" title="{{row.time}} Server Time" tooltip>
+                            <th scope="row" ng-bind="formatDate(row.time) | date:'medium'"></th>
+                            <td ng-bind-html="row.coins|coins2gold"></td>
+                        </tr>
+                        <tr class="table-primary" ng-show="!entryList.length">
+                            <td colspan="2" scope="row">No Entries found</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.5/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.7.5/angular-resource.min.js"></script>
+    <script src="js/lottery.js"></script>
+</body>
+
+</html>
