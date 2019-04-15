@@ -1,0 +1,14 @@
+CREATE TABLE `lottery_log` (
+	`lottery_id` INT(11) NOT NULL AUTO_INCREMENT,
+	`log_id` INT(11) NOT NULL DEFAULT '0',
+	`time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`user` VARCHAR(50) NOT NULL DEFAULT '0',
+	`coins` INT(11) NOT NULL DEFAULT '0',
+	`guild` VARCHAR(36) NOT NULL,
+	PRIMARY KEY (`lottery_id`),
+	INDEX `user` (`user`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=0
+;

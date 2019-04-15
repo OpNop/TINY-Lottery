@@ -14,18 +14,21 @@ composer install
 Copy `config.example.php` to `config.php` and fill in with your data
 
 ### Database
-Create the table with `Create_table.sql` or use the following
+Create the table with `Create Table.sql` or use the following
 ```sql
 CREATE TABLE `lottery_log` (
-	`id` INT(11) NOT NULL DEFAULT '0',
+	`lottery_id` INT(11) NOT NULL AUTO_INCREMENT,
+	`log_id` INT(11) NOT NULL DEFAULT '0',
 	`time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	`user` VARCHAR(50) NOT NULL DEFAULT '0',
 	`coins` INT(11) NOT NULL DEFAULT '0',
-	PRIMARY KEY (`id`),
+	`guild` VARCHAR(36) NOT NULL,
+	PRIMARY KEY (`lottery_id`),
 	INDEX `user` (`user`)
 )
 COLLATE='latin1_swedish_ci'
-ENGINE=InnoDB;
+ENGINE=InnoDB
+AUTO_INCREMENT=0;
 ```
 
 ### Cron
