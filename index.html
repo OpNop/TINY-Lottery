@@ -51,10 +51,10 @@
                         </div>
                     </div>
                     
-                    <!-- <p class="lead">
-                        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-                        Scratch that, no learning, bookahs.
-                    </p> -->
+                    <p class="lead">
+                        <a class="btn btn-primary btn-lg" href="#" role="button" data-toggle="modal" data-target="#prizes">See Prizes</a>
+                        
+                    </p>
                 </div>
             </div>
         </div>
@@ -90,6 +90,53 @@
                         </tr>
                     </tbody>
                 </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Prize Modal -->
+    <div class="modal " id="prizes">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+        
+                <!-- Modal Header -->
+                <div class="modal-header">
+                <h4 class="modal-title">Available Prizes</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+        
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4" ng-repeat="prize in prizeList">
+                            <div class="media mb-4">
+                                <img ng-src="{{prize.icon}}" fallback-src="https://static.staticwars.com/quaggans/404.jpg" class="item {{prize.rarity}} mr-3" width="64" height="64" />
+                                <div class="media-body">
+                                    <div class="prize-name {{prize.rarity}}" ng-bind="prize.name"></div>
+                                    <div class="prize-desc" ng-bind="prize.description | htmlToPlaintext"></div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <!-- <table class="table">
+                        <tbody>
+                            <tr ng-repeat="prize in prizeList">
+                                <td><img ng-src="{{prize.icon}}" fallback-src="https://static.staticwars.com/quaggans/404.jpg" class="item {{prize.rarity}}" width="64" height="64" /></td>
+                                <td>
+                                    <div class="prize-name {{prize.rarity}}" ng-bind="prize.name"></div>
+                                    <div class="prize-desc" ng-bind="prize.description | htmlToPlaintext"></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table> -->
+                </div>
+        
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+        
             </div>
         </div>
     </div>

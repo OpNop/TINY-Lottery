@@ -19,6 +19,11 @@ const app = angular.module('tinyLottery', ['ngResource'])
             return $sce.trustAsHtml(priceArr.join(''));
         };
     })
+    .filter('htmlToPlaintext', function() {
+        return function(text) {
+            return  text ? String(text).replace(/<[^>]+>/gm, '') : '';
+        };
+    })
     .directive('tooltip', () => {
         return {
             restrict: 'A',
@@ -33,9 +38,20 @@ const app = angular.module('tinyLottery', ['ngResource'])
             }
         };
     })
+    .directive('fallbackSrc', () => {
+        var fallbackSrc = {
+            link: function postLink(scope, iElement, iAttrs) {
+                iElement.bind('error', function() {
+                    angular.element(this).attr("src", iAttrs.fallbackSrc);
+                });
+            }
+        }
+        return fallbackSrc;
+    })
     .controller('lotteryCtrl', ($scope, $resource, $location) => {
         //should this be const? Also, can we convert it to query string (/api/listEntries?account), just for RESTfulness?
         let getEntries = $resource('api/listEntries/:accountName');
+        let getprizeList = $resource('api/getPrizes/:bankTab');
         //Fake init method
         $scope.onLoad = () => {
             //Check for account in query string
@@ -43,6 +59,10 @@ const app = angular.module('tinyLottery', ['ngResource'])
             if (typeof $scope.AccountName != 'undefined') {
                 $scope.searchEntries();
             }
+            //load prizes, this should get moved to later bet meh for now
+            getprizeList.query({ bankTab: 1 }, (result) => {
+                $scope.prizeList = result;
+            });
         }
 
         $scope.searchEntries = () => {

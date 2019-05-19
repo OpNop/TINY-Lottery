@@ -45,3 +45,46 @@ tbody {
 .bg-notSoHarsh {
     background-color: #6a3dbb !important;
 }
+
+.prize-name {
+    font-size: 14pt;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.prize-desc {
+    color: black;
+}
+
+.modal-title {
+    color: blueviolet;
+}
+
+/* Rarity colors */
+.item {
+    border-style: solid;
+}
+.junk {
+    color: #aaa;
+}
+.basic {
+    color: #000;
+}
+.fine {
+    color: #62a4da;
+}
+.masterwork {
+    color: #1b9206;
+}
+.rare {
+    color: #fcd00b;
+}
+.exotic {
+    color: #ffa405;
+}
+.ascended {
+    color: #fb3e8d;
+}
+.legendary {
+    color: #4C139D;
+}

@@ -82,7 +82,7 @@ class GW2LottoryController {
                 //description is optional
                 "description"   => ( property_exists( $apiItem, 'description' ) ? $apiItem->description : "" ),
                 "type"          => $apiItem->type,
-                "rarity"        => $apiItem->rarity,
+                "rarity"        => strtolower( $apiItem->rarity ),
                 "chat_link"     => $apiItem->chat_link,
                 "icon"          => $apiItem->icon
             ];
